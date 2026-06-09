@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/user_db
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/user_db}
+    username: ${DB_USERNAME:hamedmiri72}
+    password: ${DB_PASSWORD:hamedmiri72}
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
@@ -17,6 +17,18 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:hamedmiri72@gmail.com}
+    password: ${MAIL_PASSWORD:vzurqqsrmpihtxtw}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
 
 jwt:
   secret: ${JWT_SECRET:bXlTdXBlclNlY3JldEtleUZvckp3dEF1dGhlbnRpY2F0aW9u}
@@ -26,7 +38,7 @@ jwt:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8061/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:8061/eureka/}
   instance:
     prefer-ip-address: true
 
@@ -46,3 +58,6 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+app:
+  reset-password-url: ${RESET_PASSWORD_URL:http://localhost:3000/reset-password}
